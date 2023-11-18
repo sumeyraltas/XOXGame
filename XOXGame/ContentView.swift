@@ -6,7 +6,8 @@ enum Player: String {
 }
 
 struct ContentView: View {
-    @State private var board: [[Player?]] = Array(repeating: Array(repeating: nil, count: 3), count: 3)
+    @State private var board: [[Player?]] = 
+    Array(repeating: Array(repeating: nil, count: 3), count: 3)
     @State private var currentPlayer: Player = .x
     @State private var showAlert = false
     @State private var alertTitle = ""
@@ -17,9 +18,10 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            
             Text("Tic Tac Toe")
-                .font(.system(size: 30, weight: .bold))
-                .padding(50)
+                .font(.system(size: 35, weight: .bold))
+                .padding(35)
             Spacer()
             VStack(spacing: 5) {
                 ForEach(0..<3) { row in
@@ -33,8 +35,8 @@ struct ContentView: View {
                                 }
                             }) {
                                 Text(board[row][col]?.rawValue ?? "")
-                                    .font(.largeTitle)
-                                    .frame(width: 90, height: 90)
+                                    .font(.system(size: 50, weight: .bold))
+                                    .frame(width: 110, height: 110)
                                     .foregroundColor(currentPlayer == .x ? .blue : .red)
                                     .background(Color.gray.opacity(0.3))
                                     .cornerRadius(10)
@@ -92,6 +94,7 @@ struct ContentView: View {
 
         // Check for a tie
         if board.flatMap({ $0 }).allSatisfy({ $0 != nil }) {
+            alertTitle = "Please play again!"
             alertMessage = "It's a tie!"
             showAlert = true
         }
